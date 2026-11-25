@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "target": "ES2025",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "rootDir": ".",
+    "incremental": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "strictPropertyInitialization": false,
+    "types": ["node"],
+     "paths": {
+      "@test-chat-app/utils/*": ["./src/libs/utils/*"],
+      "@test-chat-app/prisma/*": ["./src/prisma/*"],
+      "@test-chat-app/logger/*": ["./src/libs/logger/*"],
+      "@test-chat-app/middlewares/*": ["./src/libs/middlewares/*"],
+      "@test-chat-app/decorators/*": ["./src/libs/decorators/*"],
+      "@test-chat-app/dtos/*": ["./src/libs/dtos/*"],
+      "@test-chat-app/filters/*": ["./src/libs/filters/*"],
+      "@test-chat-app/interceptors/*": ["./src/libs/interceptors/*"],
+      "@test-chat-app/guards/*": ["./src/libs/guards/*"],
+      "@test-chat-app/jsons/*": ["./src/libs/jsons/*"],
+      "@test-chat-app/prompts/*": ["./src/libs/prompts/*"]
+    }
+  }
+}
