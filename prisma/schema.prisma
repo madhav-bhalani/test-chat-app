@@ -1,0 +1,76 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum AuthProvider {
+  manual
+  google
+  apple
+}
+
+enum DevicePlatform {
+  web 
+  mobile
+}
+
+model User {
+  id                       Int       @id @default(autoincrement())
+  username                 String
+  email                    String    @unique
+  password                 String?
+  avatarId                 Int?
+  passwordResetToken       String?
+  passwordResetTokenExpiry DateTime?
+  otpSecret                String?
+  authProvider             AuthProvider @default(manual)
+  isActive                 Int       @default(1)
+  isEmailNotification      Int       @default(0)
+  isPushNotification       Int       @default(0)
+  
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @default(now()) @updatedAt
+  deletedAt DateTime?
+  
+  // Relations
+  deviceInfos    DeviceInfo[]
+
+  @@map("users")
+}
+
+model DeviceInfo {
+  id             Int            @id @default(autoincrement())
+  userId         Int            
+  isLogin        Int            @default(0) 
+  devicePlatform DevicePlatform @default(web) 
+  deviceToken    String?        
+  deviceUniqueId String?        
+  deviceModel    String?        
+  os             String?
+  sessionId      String?        @unique 
+  appVersion     String?        
+  browserName    String?        
+  browserVersion String?        
+  ipAddress      String?        
+  lastLoginAt    DateTime?      
+  
+  createdAt DateTime @default(now()) 
+  updatedAt DateTime @default(now()) @updatedAt
+
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([deviceUniqueId])
+  @@index([sessionId])
+  @@map("devices_info")
+}
