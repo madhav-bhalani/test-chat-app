@@ -8,6 +8,7 @@ import configuration from './config/configuration.js';
 import { existsSync } from 'node:fs';
 import { ApiKeyMiddleware } from './libs/middlewares/api-key.middleware.js';
 import { join } from 'node:path';
+import { PrismaModule } from './prisma/prisma.module.js';
 export const { ObserveModule, ObserveInstrument } = createObserveModule();
 
 @Module({
@@ -17,6 +18,7 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
       isGlobal: true,
       load: [configuration],
     }),
+    PrismaModule,
     // Distributed tracing, auto-correlated logs, request/job metrics, error
     // telemetry, alarms, and more — out of the box. Sign up at https://observe.nestjs.com,
     // then run `npx @nestjs/observe link` to write your key pair into .env.
